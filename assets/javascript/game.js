@@ -3,6 +3,7 @@ $(document).ready(function () {
     //an object that is going to hold the variables we need for the game
     var game = {
         isCharacterChosen: false,
+        isFighterChosen: false,
 
         //functions
         //for the reset button
@@ -17,8 +18,12 @@ $(document).ready(function () {
 
     $('#character-1').on('click', function () {
 
+        if (game.isCharacterChosen && game.isFighterChosen) {
+
+        }
         if (game.isCharacterChosen === true) {
-            alert('NO');
+            $('#defender').append($('#character-1'));
+            game.isFighterChosen = true;
         }
         else {
             $('#your-character').append($('#character-1'));
@@ -26,13 +31,16 @@ $(document).ready(function () {
             $('#enemies-to-attack').append($('#character-3'));
             $('#enemies-to-attack').append($('#character-4'));
             game.isCharacterChosen = true;
+
         }
 
 
     })
     $('#character-2').on('click', function () {
+
         if (game.isCharacterChosen === true) {
-            alert('NO');
+            $('#defender').append($('#character-2'));
+            game.isFighterChosen = true;
         }
         else {
             $('#your-character').append($('#character-2'));
@@ -42,11 +50,13 @@ $(document).ready(function () {
             game.isCharacterChosen = true;
         }
 
+
     })
 
     $('#character-3').on('click', function () {
         if (game.isCharacterChosen === true) {
-            alert('NO');
+            $('#defender').append($('#character-3'));
+            game.isFighterChosen = true;
         }
         else {
             $('#your-character').append($('#character-3'));
@@ -59,7 +69,8 @@ $(document).ready(function () {
     })
     $('#character-4').on('click', function () {
         if (game.isCharacterChosen === true) {
-            alert('NO');
+            $('#defender').append($('#character-4'));
+            game.isFighterChosen = true;
         }
         else {
             $('#your-character').append($('#character-4'));
@@ -71,6 +82,11 @@ $(document).ready(function () {
         }
 
     })
+
+
+    if (game.isCharacterChosen === true) {
+
+    }
 
 
 
