@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background: url('../images/background.png');
+    margin: 10px;
+}
+
+.game-header{
+    text-align: right;
+}
+.game-header h1{
+  margin-right: 200px;
+}
+
+
+.character-boxs{
+    width: 250px;
+    height: 200px;
+    background-color: #fff;
+    text-align: center;
+    border: 3px solid green;
+    float: left;
+
+}
+img{
+    /* centers the image */
+    margin: 0 auto;
+    width: 215px;
+    height: 150px;
+}
+.character-boxs p{
+    margin-bottom: 0;
+}
+.your-character{
+    clear: both;
+}
