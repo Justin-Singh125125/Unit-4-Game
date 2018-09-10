@@ -33,6 +33,6 @@ img{
 .character-boxs p{
     margin-bottom: 0;
 }
-.your-character{
+#your-character{
     clear: both;
 }
