@@ -2,42 +2,81 @@
 $(document).ready(function () {
     //an object that is going to hold the variables we need for the game
     var game = {
-        availableCharacters: [],
-        selectedCharacter: "",
-        //an array that stores the enemy characters id 
-        enemyCharacters: [],
+        isCharacterChosen: false,
 
         //functions
         //for the reset button
         reset: function () {
-            initalizeCharacterArray();
         },
-        initalizeCharacterArray: function () {
-            this.availableCharacters[0] = $('#character-1');
-            this.availableCharacters[1] = $('#character-2');
-            this.availableCharacters[2] = $('#character-3');
-            this.availableCharacters[3] = $('#character-4');
-        },
+
     };
 
 
-    //create an on click for the characters
-    $('.choose-characters').on('click', function () {
-        // a variable that is going to hold the specific character chosen
-        game.selectedCharacter = $(this);
-        //now we want to move this selected character to the your character tag
-        $('#your-character').append(game.selectedCharacter);
-        //make the other characters append to enemies available 
-        //a for loop to assign enemy characters to their spot
-        for (var i = 0; i < 4; i++) {
-            if ($('.choose-characters') != game.selectedCharacter) {
-                //fill up the enemy array with characters that do not match
-
-                $('#enemies-to-attack').append($(game.availableCharacters[i]));
 
 
-            }
+
+    $('#character-1').on('click', function () {
+
+        if (game.isCharacterChosen === true) {
+            alert('NO');
         }
+        else {
+            $('#your-character').append($('#character-1'));
+            $('#enemies-to-attack').append($('#character-2'));
+            $('#enemies-to-attack').append($('#character-3'));
+            $('#enemies-to-attack').append($('#character-4'));
+            game.isCharacterChosen = true;
+        }
+
+
     })
+    $('#character-2').on('click', function () {
+        if (game.isCharacterChosen === true) {
+            alert('NO');
+        }
+        else {
+            $('#your-character').append($('#character-2'));
+            $('#enemies-to-attack').append($('#character-1'));
+            $('#enemies-to-attack').append($('#character-3'));
+            $('#enemies-to-attack').append($('#character-4'));
+            game.isCharacterChosen = true;
+        }
+
+    })
+
+    $('#character-3').on('click', function () {
+        if (game.isCharacterChosen === true) {
+            alert('NO');
+        }
+        else {
+            $('#your-character').append($('#character-3'));
+            $('#enemies-to-attack').append($('#character-1'));
+            $('#enemies-to-attack').append($('#character-2'));
+            $('#enemies-to-attack').append($('#character-4'));
+            game.isCharacterChosen = true;
+        }
+
+    })
+    $('#character-4').on('click', function () {
+        if (game.isCharacterChosen === true) {
+            alert('NO');
+        }
+        else {
+            $('#your-character').append($('#character-4'));
+            $('#enemies-to-attack').append($('#character-1'));
+            $('#enemies-to-attack').append($('#character-2'));
+            $('#enemies-to-attack').append($('#character-3'));
+            game.isCharacterChosen = true;
+
+        }
+
+    })
+
+
+
+
+
+
+
 
 })
