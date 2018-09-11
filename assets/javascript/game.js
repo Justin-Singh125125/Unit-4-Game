@@ -16,7 +16,7 @@ $(document).ready(function () {
             this.isDefenderChosen = false;
             this.chosenCharacterValue = 0;
             this.chosenDefenderValue = 0;
-            
+
 
         },
 
@@ -61,28 +61,37 @@ $(document).ready(function () {
         }
         //if character is chosen but fighter is not chosen do this
         if ((game.isCharacterChosen) && (!game.isFighterChosen)) {
+
             if (this.id == 'character-1') {
                 $('#enemies-to-attack').append($('#character-2'));
                 $('#enemies-to-attack').append($('#character-3'));
                 $('#enemies-to-attack').append($('#character-4'));
+                //change color
+                $('.char-2, .char-3, .char-4').css('background-color', 'red');
                 game.isFighterChosen = true;
             }
             if (this.id == 'character-2') {
                 $('#enemies-to-attack').append($('#character-1'));
                 $('#enemies-to-attack').append($('#character-3'));
                 $('#enemies-to-attack').append($('#character-4'));
+                $('.char-1, .char-3, .char-4').css('background-color', 'red');
+
                 game.isFighterChosen = true;
             }
             if (this.id == 'character-3') {
                 $('#enemies-to-attack').append($('#character-1'));
                 $('#enemies-to-attack').append($('#character-2'));
                 $('#enemies-to-attack').append($('#character-4'));
+                $('.char-1, .char-2, .char-4').css('background-color', 'red');
+
                 game.isFighterChosen = true;
             }
             if (this.id == 'character-4') {
                 $('#enemies-to-attack').append($('#character-1'));
                 $('#enemies-to-attack').append($('#character-2'));
                 $('#enemies-to-attack').append($('#character-3'));
+                $('.char-1, .char-2, .char-3').css('background-color', 'red');
+
                 game.isFighterChosen = true;
             }
         }
