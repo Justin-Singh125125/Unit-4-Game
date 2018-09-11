@@ -6,10 +6,18 @@ $(document).ready(function () {
         isFighterChosen: false,
         isDefenderChosen: false,
         chosenCharacterValue: 0,
+        chosenDefenderValue: 0,
 
         //functions
         //for the reset button
         reset: function () {
+            this.isCharacterChosen = false;
+            this.isFighterChosen = false;
+            this.isDefenderChosen = false;
+            this.chosenCharacterValue = 0;
+            this.chosenDefenderValue = 0;
+            
+
         },
 
 
@@ -79,11 +87,13 @@ $(document).ready(function () {
             }
         }
         //if the character is choosen and the fighter is chosen
-        if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
+        {
             $('.choose-characters').on('click', function () {
+                if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
 
-                $('#defender').append($(this));
-                game.isDefenderChosen = true;
+                    $('#defender').append($(this));
+                    game.isDefenderChosen = true;
+                }
 
             })
         }
@@ -92,11 +102,13 @@ $(document).ready(function () {
 
 
     })
-
+    //if everything is good to go and locked in
     $('#attack').on("click", function () {
         if ((game.isCharacterChosen) && (game.isFighterChosen) && (game.isDefenderChosen)) {
             alert('characters locked in');
+            //
         }
+
     })
 
 
