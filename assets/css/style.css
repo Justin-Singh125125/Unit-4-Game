@@ -50,3 +50,7 @@ img{
 #display{
     clear:both;
 }
+#reset{
+    clear: both;
+    visibility: hidden;
+}

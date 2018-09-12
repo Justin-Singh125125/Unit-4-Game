@@ -36,6 +36,7 @@ $(document).ready(function () {
         {
             name: 'Obi-Wan Kenobi',
             healthPoints: 120,
+            defaultAttackPower: 8,
             attackPower: 8,
             counterAttack: 10,
 
@@ -50,6 +51,7 @@ $(document).ready(function () {
         {
             name: 'Luke Skywalker',
             healthPoints: 100,
+            defaultAttackPower: 10,
             attackPower: 10,
             counterAttack: 7,
             displayHealth: function () {
@@ -63,6 +65,7 @@ $(document).ready(function () {
         {
             name: 'Darth Sidious',
             healthPoints: 150,
+            defaultAttackPower: 12,
             attackPower: 12,
             counterAttack: 15,
             displayHealth: function () {
@@ -76,6 +79,7 @@ $(document).ready(function () {
         {
             name: 'Darth Maul',
             healthPoints: 180,
+            defaultAttackPower: 15,
             attackPower: 15,
             counterAttack: 25,
             displayHealth: function () {
@@ -101,11 +105,13 @@ $(document).ready(function () {
 
 
     displayAllHealth();
+
+
     //an onclick to get the buttons
     $('.choose-characters').on('click', function () {
 
         //check if certain characters are clicked
-        if (!game.isCharacterChosen) {
+        if ((!game.isCharacterChosen) && (!game.isGameOver)) {
             if (this.id == 'character-1') {
                 //move character 1 to chosen character
                 $('#your-character').append($('#character-1'));
@@ -115,18 +121,21 @@ $(document).ready(function () {
             if (this.id == 'character-2') {
                 //move character 1 to chosen character
                 $('#your-character').append($('#character-2'));
+                game.chosenCharacterValue = $('#character-2').attr('value');
                 game.isCharacterChosen = true;
 
             }
             if (this.id == 'character-3') {
                 //move character 1 to chosen character
                 $('#your-character').append($('#character-3'));
+                game.chosenCharacterValue = $('#character-3').attr('value');
                 game.isCharacterChosen = true;
 
             }
             if (this.id == 'character-4') {
                 //move character 1 to chosen character
                 $('#your-character').append($('#character-4'));
+                game.chosenCharacterValue = $('#character-4').attr('value');
                 game.isCharacterChosen = true;
 
             }
@@ -173,40 +182,40 @@ $(document).ready(function () {
             }
         }
         //if the character is choosen and the fighter is chosen
-        {
-            $('.choose-characters').on('click', function () {
-                if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
-                    $('#defender').append($(this));
 
-                    //this is going to allow us to store the defender value so we can control who we are fighting
-                    game.chosenDefenderValue = $(this).attr('value');
+        $('.choose-characters').on('click', function () {
+            if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
+                $('#defender').append($(this));
 
-                    if (this.id == 'character-1') {
-                        $('.char-1').css('background-color', 'black');
-                        $('.char-1').css('border', 'solid green');
-                        $('.char-1').css('color', 'white');
-                    }
-                    if (this.id == 'character-2') {
-                        $('.char-2').css('background-color', 'black');
-                        $('.char-2').css('color', 'white');
-                        $('.char-2').css('border', 'solid green');
-                    }
-                    if (this.id == 'character-3') {
-                        $('.char-3').css('background-color', 'black');
-                        $('.char-3').css('color', 'white');
-                        $('.char-3').css('border', 'solid green');
-                    }
-                    if (this.id == 'character-4') {
-                        $('.char-4').css('background-color', 'black');
-                        $('.char-4').css('color', 'white');
-                        $('.char-4').css('border', 'solid green');
-                    }
-                    game.isDefenderChosen = true;
+                //this is going to allow us to store the defender value so we can control who we are fighting
+                game.chosenDefenderValue = $(this).attr('value');
 
+                if (this.id == 'character-1') {
+                    $('.char-1').css('background-color', 'black');
+                    $('.char-1').css('border', 'solid green');
+                    $('.char-1').css('color', 'white');
                 }
+                if (this.id == 'character-2') {
+                    $('.char-2').css('background-color', 'black');
+                    $('.char-2').css('color', 'white');
+                    $('.char-2').css('border', 'solid green');
+                }
+                if (this.id == 'character-3') {
+                    $('.char-3').css('background-color', 'black');
+                    $('.char-3').css('color', 'white');
+                    $('.char-3').css('border', 'solid green');
+                }
+                if (this.id == 'character-4') {
+                    $('.char-4').css('background-color', 'black');
+                    $('.char-4').css('color', 'white');
+                    $('.char-4').css('border', 'solid green');
+                }
+                game.isDefenderChosen = true;
 
-            })
-        }
+            }
+
+        })
+
 
 
 
@@ -216,7 +225,7 @@ $(document).ready(function () {
     $('#attack').on("click", function () {
         //clears out the content in display
 
-        if ((game.isCharacterChosen) && (game.isFighterChosen) && (game.isDefenderChosen)) {
+        if ((game.isCharacterChosen) && (game.isFighterChosen) && (game.isDefenderChosen) && (!game.isGameOver)) {
 
             if (game.isFirstAttack) {
                 $('#display').empty();
@@ -232,7 +241,7 @@ $(document).ready(function () {
                 game.isFirstAttack = false;
             }
             else {
-                Characters[game.chosenCharacterValue].attackPower *= 2;
+                Characters[game.chosenCharacterValue].attackPower += Characters[game.chosenCharacterValue].defaultAttackPower;
                 console.log(Characters[game.chosenCharacterValue].attackPower);
                 $('#display').empty();
                 $('#display').append('<p> You attacked ' + Characters[game.chosenDefenderValue].name + ' for ' + Characters[game.chosenCharacterValue].attackPower + ' damage.</p>');
@@ -253,6 +262,11 @@ $(document).ready(function () {
                     //so we can pick another character
                     game.isDefenderChosen = false;
 
+                }
+                else if (Characters[game.chosenCharacterValue].healthPoints <= 0) {
+                    $('#display').html('You Were Killed! Game Over!');
+                    game.isGameOver = true;
+                    $('#reset').css('visibility', 'visible');
                 }
 
             }
@@ -275,6 +289,5 @@ $(document).ready(function () {
         }
 
     })
-
 
 })
