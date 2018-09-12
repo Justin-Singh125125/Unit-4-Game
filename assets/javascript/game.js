@@ -99,9 +99,22 @@ $(document).ready(function () {
         {
             $('.choose-characters').on('click', function () {
                 if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
-
                     $('#defender').append($(this));
+
+                    if (this.id == 'character-1') {
+                        $('.char-1').css('background-color', 'black');
+                    }
+                    if (this.id == 'character-2') {
+                        $('.char-2').css('background-color', 'black');
+                    }
+                    if (this.id == 'character-3') {
+                        $('.char-3').css('background-color', 'black');
+                    }
+                    if (this.id == 'character-4') {
+                        $('.char-4').css('background-color', 'black');
+                    }
                     game.isDefenderChosen = true;
+
                 }
 
             })
