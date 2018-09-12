@@ -6,8 +6,10 @@ $(document).ready(function () {
         isFighterChosen: false,
         isDefenderChosen: false,
         isGameOver: false,
+        isFirstAttack: true,
         chosenCharacterValue: 0,
         chosenDefenderValue: 0,
+        enemiesDestroyed: 0,
 
         //functions
         //for the reset button
@@ -215,9 +217,49 @@ $(document).ready(function () {
         //clears out the content in display
 
         if ((game.isCharacterChosen) && (game.isFighterChosen) && (game.isDefenderChosen)) {
-            $('#display').empty();
-            $('#display').append('<p> You attacked ' + Characters[game.chosenDefenderValue].name + ' for ' + Characters[game.chosenCharacterValue].attackPower + ' damage.</p>');
-            $('#display').append('<p>' + Characters[game.chosenDefenderValue].name + ' attacked you back for ' + Characters[game.chosenDefenderValue].counterAttack + ' damage.</p>');
+
+            if (game.isFirstAttack) {
+                $('#display').empty();
+                $('#display').append('<p> You attacked ' + Characters[game.chosenDefenderValue].name + ' for ' + Characters[game.chosenCharacterValue].attackPower + ' damage.</p>');
+                $('#display').append('<p>' + Characters[game.chosenDefenderValue].name + ' attacked you back for ' + Characters[game.chosenDefenderValue].counterAttack + ' damage.</p>');
+                //update health of enemy
+                Characters[game.chosenDefenderValue].updateHealth(Characters[game.chosenCharacterValue].attackPower);
+                Characters[game.chosenCharacterValue].updateHealth(Characters[game.chosenDefenderValue].counterAttack);
+
+                //display health of all characters
+
+                displayAllHealth();
+                game.isFirstAttack = false;
+            }
+            else {
+                Characters[game.chosenCharacterValue].attackPower *= 2;
+                console.log(Characters[game.chosenCharacterValue].attackPower);
+                $('#display').empty();
+                $('#display').append('<p> You attacked ' + Characters[game.chosenDefenderValue].name + ' for ' + Characters[game.chosenCharacterValue].attackPower + ' damage.</p>');
+                $('#display').append('<p>' + Characters[game.chosenDefenderValue].name + ' attacked you back for ' + Characters[game.chosenDefenderValue].counterAttack + ' damage.</p>');
+
+                //update health of enemy
+                Characters[game.chosenDefenderValue].updateHealth(Characters[game.chosenCharacterValue].attackPower);
+                //update health of myself
+                Characters[game.chosenCharacterValue].updateHealth(Characters[game.chosenDefenderValue].counterAttack);
+                //display health of all characters
+                displayAllHealth();
+                if (Characters[game.chosenDefenderValue].healthPoints <= 0) {
+                    //erase the character
+                    $('#defender').empty();
+                    //overwrite text
+                    $('#display').html('You Killed ' + Characters[game.chosenDefenderValue].name + '! ')
+                    $('#display').append('<p>Pick another enemy to destory!</p>');
+                    //so we can pick another character
+                    game.isDefenderChosen = false;
+
+                }
+
+            }
+
+
+
+
 
 
 
