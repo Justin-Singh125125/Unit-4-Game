@@ -15,7 +15,6 @@ $(document).ready(function () {
         //functions
         //for the reset button
         reset: function () {
-            console.log('test');
             this.isCharacterChosen = false;
             this.isFighterChosen = false;
             this.isDefenderChosen = false;
@@ -28,6 +27,16 @@ $(document).ready(function () {
             $('#display').empty();
             $('#reset').css('visibility', 'hidden');
             game.displayAllHealth();
+
+            //reset images
+            $('#character-holder').html($('#character-1'));
+            $('#character-holder').append($('#character-2'));
+            $('#character-holder').append($('#character-3'));
+            $('#character-holder').append($('#character-4'));
+
+
+            //resets images
+            // $('.choose-characters').html($('char-1'));
         },
         //a function that displays all characters health to the screen
         displayAllHealth: function () {
