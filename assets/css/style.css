@@ -52,5 +52,8 @@ img{
 }
 #reset{
     clear: both;
+    visibility: visible;
+}
+#hidden{
     visibility: hidden;
 }
