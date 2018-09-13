@@ -11,16 +11,30 @@ $(document).ready(function () {
         chosenDefenderValue: 0,
         enemiesDestroyed: 0,
 
+
         //functions
         //for the reset button
         reset: function () {
+            console.log('test');
             this.isCharacterChosen = false;
             this.isFighterChosen = false;
             this.isDefenderChosen = false;
             this.chosenCharacterValue = 0;
             this.chosenDefenderValue = 0;
+            this.isGameOver = false;
+            this.isFirstAttack = true;
+            this.enemiesDestroyed = 0;
 
-
+            $('#display').empty();
+            $('#reset').css('visibility', 'hidden');
+            game.displayAllHealth();
+        },
+        //a function that displays all characters health to the screen
+        displayAllHealth: function () {
+            $('.health-0').html(Characters[0].healthPoints);
+            $('.health-1').html(Characters[1].healthPoints);
+            $('.health-2').html(Characters[2].healthPoints);
+            $('.health-3').html(Characters[3].healthPoints);
         },
 
 
@@ -54,6 +68,7 @@ $(document).ready(function () {
             defaultAttackPower: 10,
             attackPower: 10,
             counterAttack: 7,
+
             displayHealth: function () {
                 $('.health-1').html(this.healthPoints);
             },
@@ -68,6 +83,7 @@ $(document).ready(function () {
             defaultAttackPower: 12,
             attackPower: 12,
             counterAttack: 15,
+
             displayHealth: function () {
                 $('.health-2').html(this.healthPoints);
             },
@@ -82,31 +98,24 @@ $(document).ready(function () {
             defaultAttackPower: 15,
             attackPower: 15,
             counterAttack: 25,
+
             displayHealth: function () {
                 $('.health-3').html(this.healthPoints);
             },
             updateHealth: function (num) {
                 this.healthPoints -= num;
             },
+
         },
 
 
     ]
-    //a function that displays all characters health to the screen
-    function displayAllHealth() {
-        $('.health-0').html(Characters[0].healthPoints);
-        $('.health-1').html(Characters[1].healthPoints);
-        $('.health-2').html(Characters[2].healthPoints);
-        $('.health-3').html(Characters[3].healthPoints);
-    }
+    $('#reset').on('click', function () {
+        game.reset();
+    })
 
-
-
-
-
-    displayAllHealth();
-
-
+    //function that returns characters existence
+    game.displayAllHealth();
     //an onclick to get the buttons
     $('.choose-characters').on('click', function () {
 
@@ -184,33 +193,35 @@ $(document).ready(function () {
         //if the character is choosen and the fighter is chosen
 
         $('.choose-characters').on('click', function () {
-            if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen)) {
-                $('#defender').append($(this));
+            if ((game.isCharacterChosen) && (game.isFighterChosen) && (!game.isDefenderChosen && (!game.isGameOver))) {
 
-                //this is going to allow us to store the defender value so we can control who we are fighting
-                game.chosenDefenderValue = $(this).attr('value');
+                if (!($(this).attr('value') == game.chosenCharacterValue)) {
+                    $('#defender').append($(this));
+                    //this is going to allow us to store the defender value so we can control who we are fighting
+                    game.chosenDefenderValue = $(this).attr('value');
 
-                if (this.id == 'character-1') {
-                    $('.char-1').css('background-color', 'black');
-                    $('.char-1').css('border', 'solid green');
-                    $('.char-1').css('color', 'white');
+                    if (this.id == 'character-1') {
+                        $('.char-1').css('background-color', 'black');
+                        $('.char-1').css('border', 'solid green');
+                        $('.char-1').css('color', 'white');
+                    }
+                    if (this.id == 'character-2') {
+                        $('.char-2').css('background-color', 'black');
+                        $('.char-2').css('color', 'white');
+                        $('.char-2').css('border', 'solid green');
+                    }
+                    if (this.id == 'character-3') {
+                        $('.char-3').css('background-color', 'black');
+                        $('.char-3').css('color', 'white');
+                        $('.char-3').css('border', 'solid green');
+                    }
+                    if (this.id == 'character-4') {
+                        $('.char-4').css('background-color', 'black');
+                        $('.char-4').css('color', 'white');
+                        $('.char-4').css('border', 'solid green');
+                    }
+                    game.isDefenderChosen = true;
                 }
-                if (this.id == 'character-2') {
-                    $('.char-2').css('background-color', 'black');
-                    $('.char-2').css('color', 'white');
-                    $('.char-2').css('border', 'solid green');
-                }
-                if (this.id == 'character-3') {
-                    $('.char-3').css('background-color', 'black');
-                    $('.char-3').css('color', 'white');
-                    $('.char-3').css('border', 'solid green');
-                }
-                if (this.id == 'character-4') {
-                    $('.char-4').css('background-color', 'black');
-                    $('.char-4').css('color', 'white');
-                    $('.char-4').css('border', 'solid green');
-                }
-                game.isDefenderChosen = true;
 
             }
 
@@ -224,7 +235,6 @@ $(document).ready(function () {
     //if everything is good to go and locked in
     $('#attack').on("click", function () {
         //clears out the content in display
-
         if ((game.isCharacterChosen) && (game.isFighterChosen) && (game.isDefenderChosen) && (!game.isGameOver)) {
 
             if (game.isFirstAttack) {
@@ -237,7 +247,7 @@ $(document).ready(function () {
 
                 //display health of all characters
 
-                displayAllHealth();
+                game.displayAllHealth();
                 game.isFirstAttack = false;
             }
             else {
@@ -252,7 +262,7 @@ $(document).ready(function () {
                 //update health of myself
                 Characters[game.chosenCharacterValue].updateHealth(Characters[game.chosenDefenderValue].counterAttack);
                 //display health of all characters
-                displayAllHealth();
+                game.displayAllHealth();
                 if (Characters[game.chosenDefenderValue].healthPoints <= 0) {
                     //erase the character
                     $('#defender').empty();
@@ -261,12 +271,21 @@ $(document).ready(function () {
                     $('#display').append('<p>Pick another enemy to destory!</p>');
                     //so we can pick another character
                     game.isDefenderChosen = false;
+                    //keeps track of the number of enemies killed
+                    game.enemiesDestroyed++;
+                    console.log("enemies-destoryed: " + game.enemiesDestroyed);
 
                 }
                 else if (Characters[game.chosenCharacterValue].healthPoints <= 0) {
                     $('#display').html('You Were Killed! Game Over!');
                     game.isGameOver = true;
                     $('#reset').css('visibility', 'visible');
+
+                }
+                if (game.enemiesDestroyed >= 3) {
+                    $('#display').html('YOU KILLED EVERYONE, GAME OVER');
+                    $('#reset').css('visibility', 'visible');
+                    game.isGameOver = true;
                 }
 
             }
@@ -281,7 +300,7 @@ $(document).ready(function () {
         //if they click the button before any of this above is true
         else {
             //if the defender is not chosen
-            if (!game.isDefenderChosen) {
+            if (!game.isDefenderChosen && !game.isGameOver) {
                 $('#display').html('No Enemy here');
 
 
