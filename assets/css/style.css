@@ -52,7 +52,7 @@ img{
 }
 #reset{
     clear: both;
-    visibility: visible;
+    visibility: hidden;
 }
 #hidden{
     visibility: hidden;

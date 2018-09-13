@@ -25,51 +25,23 @@ $(document).ready(function () {
             this.enemiesDestroyed = 0;
 
             $('#display').empty();
-            $('#reset').css('visibility', 'visible');
+            $('#reset').css('visibility', 'hidden');
 
 
             //reset images..... this may be a bit assessive but i could not figure out how else to restore my images
             $('#character-holder').empty();
-            $('#your-character').empty();
-            $('#your-character').append('<h2>Your Character</h2>');
-            $('#enemies-to-attack').empty();
-            $('#enemies-to-attack').append('<h2>Enemies Available To Attack</h2>');
 
-            $('#defender').empty();
-            $('#defender').append('<h2>Defender</h2>')
+            $('#character-holder').html($('#character-1'));
+            $('#character-holder').append($('#character-2'));
+            $('#character-holder').append($('#character-3'));
+            $('#character-holder').append($('#character-4'));
+            $('.character-boxs').css('background-color', 'white');
+            $('.character-boxs').css('color', 'black');
+            $('.character-boxs').css('border', '3px solid green');
 
+            $('#hidden').empty();
 
-
-
-            $('#character-holder').append($("<div id = character-1 class = choose-characters value = 0></div>"))
-            $('#character-1').append('<div class = char-1> </div>');
-            $('.char-1').addClass('character-boxs').append('<p>Obi-Wan Kenobi</p>');
-            $('.char-1').append('<img src="./assets/images/Obi-Wan Kenobi.jpg">');
-            $('.char-1').append('<p class = health-0></p>');
-
-            $('#character-holder').append($("<div id = character-2 class = choose-characters value = 1></div>"))
-            $('#character-2').append('<div class = char-2> </div>');
-            $('.char-2').addClass('character-boxs').append('<p>Luke Skywalker</p>');
-            $('.char-2').append('<img src="./assets/images/LukeSkywalker.png">');
-            $('.char-2').append('<p class = health-1></p>');
-
-
-            $('#character-holder').append($("<div id = character-3 class = choose-characters value = 2></div>"))
-            $('#character-3').append('<div class = char-3> </div>');
-            $('.char-3').addClass('character-boxs').append('<p>Darth Sidious</p>');
-            $('.char-3').append('<img src="./assets/images/Darth Sidious.png">');
-            $('.char-3').append('<p class = health-2></p>');
-
-
-            $('#character-holder').append($("<div id = character-4 class = choose-characters value = 3></div>"))
-            $('#character-4').append('<div class = char-4> </div>');
-            $('.char-4').addClass('character-boxs').append('<p>Darth Maul</p>');
-            $('.char-4').append('<img src="./assets/images/Darth Maul.jpeg">');
-            $('.char-4').append('<p class = health-3></p>');
-            // $('#character-holder').html($('#character-1'));
-            // $('#character-holder').append($('#character-2'));
-            // $('#character-holder').append($('#character-3'));
-            // $('#character-holder').append($('#character-4'));
+            ;
             for (var i = 0; i < Characters.length; i++) {
                 Characters[i].reset();
             }
@@ -329,8 +301,19 @@ $(document).ready(function () {
                 if (Characters[game.chosenDefenderValue].healthPoints <= 0) {
                     //move the character to hidden
                     //overwrite text
-                    $('#defender').empty();
-                    $('#hidden').html($('character-' + game.chosenDefenderValue));
+                    if (game.chosenDefenderValue == 0) {
+                        $('#hidden').append($('#character-1'));
+                    }
+                    if (game.chosenDefenderValue == 1) {
+                        $('#hidden').append($('#character-2'));
+                    }
+                    if (game.chosenDefenderValue == 2) {
+                        $('#hidden').append($('#character-3'));
+                    }
+                    if (game.chosenDefenderValue == 3) {
+                        $('#hidden').append($('#character-4'));
+                    }
+
                     $('#display').html('You Killed ' + Characters[game.chosenDefenderValue].name + '! ')
                     $('#display').append('<p>Pick another enemy to destory!</p>');
                     //so we can pick another character
