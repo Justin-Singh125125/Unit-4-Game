@@ -10,9 +10,6 @@ $(document).ready(function () {
         chosenCharacterValue: 0,
         chosenDefenderValue: 0,
         enemiesDestroyed: 0,
-
-
-        //functions
         //for the reset button
         reset: function () {
             this.isCharacterChosen = false;
@@ -26,11 +23,8 @@ $(document).ready(function () {
 
             $('#display').empty();
             $('#reset').css('visibility', 'hidden');
-
-
             //reset images..... this may be a bit assessive but i could not figure out how else to restore my images
             $('#character-holder').empty();
-
             $('#character-holder').html($('#character-1'));
             $('#character-holder').append($('#character-2'));
             $('#character-holder').append($('#character-3'));
@@ -40,8 +34,6 @@ $(document).ready(function () {
             $('.character-boxs').css('border', '3px solid green');
 
             $('#hidden').empty();
-
-            ;
             for (var i = 0; i < Characters.length; i++) {
                 Characters[i].reset();
             }
@@ -81,8 +73,15 @@ $(document).ready(function () {
             },
             reset: function () {
                 this.healthPoints = 120;
-                this.attackPower = 8;
+                this.randomStats();
             },
+            randomStats: function () {
+                var random = Math.floor(Math.random() * (15 - 5) + 5);
+                this.defaultAttackPower = random;
+                this.attackPower = random;
+                random = Math.floor(Math.random() * (15 - 10) + 10);
+                this.counterAttack = random;
+            }
         },
         //index 1 for luke
         {
@@ -100,16 +99,23 @@ $(document).ready(function () {
             },
             reset: function () {
                 this.healthPoints = 100;
-                this.attackPower = 10;
+                this.randomStats();
             },
+            randomStats: function () {
+                var random = Math.floor(Math.random() * (15 - 5) + 5);
+                this.defaultAttackPower = random;
+                this.attackPower = random;
+                random = Math.floor(Math.random() * (15 - 10) + 10);
+                this.counterAttack = random;
+            }
         },
         //index 2 for darth sidious
         {
             name: 'Darth Sidious',
             healthPoints: 150,
             defaultAttackPower: 12,
-            attackPower: 12,
-            counterAttack: 15,
+            attackPower: 8,
+            counterAttack: 11,
 
             displayHealth: function () {
                 $('.health-2').html(this.healthPoints);
@@ -119,16 +125,23 @@ $(document).ready(function () {
             },
             reset: function () {
                 this.healthPoints = 150;
-                this.attackPower = 12;
+                this.randomStats();
             },
+            randomStats: function () {
+                var random = Math.floor(Math.random() * (15 - 5) + 5);
+                this.defaultAttackPower = random;
+                this.attackPower = random;
+                random = Math.floor(Math.random() * (15 - 10) + 10);
+                this.counterAttack = random;
+            }
         },
         //index 3 for darth maul
         {
             name: 'Darth Maul',
             healthPoints: 180,
             defaultAttackPower: 15,
-            attackPower: 15,
-            counterAttack: 25,
+            attackPower: 10,
+            counterAttack: 15,
 
             displayHealth: function () {
                 $('.health-3').html(this.healthPoints);
@@ -138,8 +151,15 @@ $(document).ready(function () {
             },
             reset: function () {
                 this.healthPoints = 180;
-                this.attackPower = 15;
+                this.randomStats();
             },
+            randomStats: function () {
+                var random = Math.floor(Math.random() * (15 - 5) + 5);
+                this.defaultAttackPower = random;
+                this.attackPower = random;
+                random = Math.floor(Math.random() * (15 - 10) + 10);
+                this.counterAttack = random;
+            }
 
         },
 
@@ -148,9 +168,17 @@ $(document).ready(function () {
     $('#reset').on('click', function () {
         game.reset();
     })
+    function initalizeCharacterStats() {
+        for (var i = 0; i < Characters.length; i++) {
+            Characters[i].randomStats();
+        }
+    }
+
 
     //function that returns characters existence
     game.displayAllHealth();
+    initalizeCharacterStats();
+
     //an onclick to get the buttons
     $('.choose-characters').on('click', function () {
 

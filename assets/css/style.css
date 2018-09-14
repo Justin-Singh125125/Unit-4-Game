@@ -1,20 +1,17 @@
 *{
     box-sizing: border-box;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
 body{
     background: url('../images/background.png');
     margin: 10px;
 }
-
 .game-header{
     text-align: right;
 }
 .game-header h1{
   margin-right: 200px;
 }
-
-
 .character-boxs{
     width: 180px;
     height: 135px;
@@ -23,6 +20,7 @@ body{
     border: 3px solid green;
     float: left;
     padding: 0 15px 0 15px;
+    margin-right: 10px;
 
 }
 img{
@@ -57,3 +55,7 @@ img{
 #hidden{
     visibility: hidden;
 }
+.container{
+    margin-left: 0;
+}
+
