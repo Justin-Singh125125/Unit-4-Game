@@ -79,7 +79,7 @@ $(document).ready(function () {
                 var random = Math.floor(Math.random() * (15 - 5) + 5);
                 this.defaultAttackPower = random;
                 this.attackPower = random;
-                random = Math.floor(Math.random() * (15 - 10) + 10);
+                random = Math.floor(Math.random() * (20 - 5) + 5);
                 this.counterAttack = random;
             }
         },
@@ -105,7 +105,7 @@ $(document).ready(function () {
                 var random = Math.floor(Math.random() * (15 - 5) + 5);
                 this.defaultAttackPower = random;
                 this.attackPower = random;
-                random = Math.floor(Math.random() * (15 - 10) + 10);
+                random = Math.floor(Math.random() * (20 - 5) + 5);
                 this.counterAttack = random;
             }
         },
@@ -131,7 +131,7 @@ $(document).ready(function () {
                 var random = Math.floor(Math.random() * (15 - 5) + 5);
                 this.defaultAttackPower = random;
                 this.attackPower = random;
-                random = Math.floor(Math.random() * (15 - 10) + 10);
+                random = Math.floor(Math.random() * (20 - 5) + 5);
                 this.counterAttack = random;
             }
         },
@@ -157,7 +157,7 @@ $(document).ready(function () {
                 var random = Math.floor(Math.random() * (15 - 5) + 5);
                 this.defaultAttackPower = random;
                 this.attackPower = random;
-                random = Math.floor(Math.random() * (15 - 10) + 10);
+                random = Math.floor(Math.random() * (20 - 5) + 5);
                 this.counterAttack = random;
             }
 
@@ -351,7 +351,7 @@ $(document).ready(function () {
                     console.log("enemies-destoryed: " + game.enemiesDestroyed);
 
                 }
-                else if (Characters[game.chosenCharacterValue].healthPoints <= 0) {
+                if (Characters[game.chosenCharacterValue].healthPoints <= 0) {
                     $('#display').html('You Were Killed! Game Over!');
                     game.isGameOver = true;
                     $('#reset').css('visibility', 'visible');
